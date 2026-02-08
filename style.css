@@ -523,76 +523,77 @@ body {
 
 @media (max-width: 600px) {
     .main-content {
-        padding-top: 40px;
+        padding-top: 20px;
         padding-bottom: 40px;
     }
 
     .hero-section {
-        margin-bottom: 60px;
-        position: relative;
-        z-index: 2;
+        margin-bottom: 80px;
+        padding-bottom: 0;
     }
 
-    /* Add space between hero and showcase */
+    /* Add massive space between to safeguard against overlap */
     .app-showcase {
-        margin-top: 40px;
+        margin-top: 0;
         flex-direction: column;
-        gap: 50px;
-        position: relative;
+        gap: 60px;
         z-index: 1;
     }
 
     .hero-title {
-        font-size: 40px;
-        line-height: 1.1;
+        font-size: 36px !important;
+        line-height: 1.2;
     }
 
     .hero-desc {
-        font-size: 18px;
+        font-size: 16px;
         padding: 0 10px;
     }
 
-    /* Container for the images - increase height for safety */
+    /* Container for the images */
     .app-images {
-        height: 380px;
+        height: 340px;
         width: 100%;
-        margin-bottom: 0px;
-        /* gap handles spacing */
+        margin-top: 20px;
+        margin-bottom: 20px;
         position: relative;
-        background: radial-gradient(circle at center, rgba(78, 226, 192, 0.1) 0%, transparent 70%);
-        /* subtle glow behind phones */
+        /* Remove background if it causes confusion, keeping it clean */
+        background: transparent;
     }
 
     /* Robust centering for the images */
     .app-img-diag-1,
     .app-img-diag-2 {
-        width: 160px;
+        width: 140px;
         top: 50%;
         left: 50%;
-        /* transform origin center */
         margin: 0;
     }
 
-    /* Center and rotate - note we combine translates */
+    /* Tighter positioning */
     .app-img-diag-1 {
-        transform: translate(-50%, -50%) translateX(-40px) rotate(-8deg);
+        transform: translate(-50%, -50%) translateX(-30px) rotate(-6deg);
     }
 
     .app-img-diag-2 {
-        transform: translate(-50%, -50%) translateX(40px) rotate(8deg);
+        transform: translate(-50%, -50%) translateX(30px) rotate(6deg);
     }
 
-    /* Adjusted hover effects for mobile (subtle) */
     .app-showcase:hover .app-img-diag-1 {
-        transform: translate(-50%, -50%) translateX(-50px) rotate(-8deg) scale(1.02);
+        transform: translate(-50%, -50%) translateX(-40px) rotate(-6deg) scale(1.02);
     }
 
     .app-showcase:hover .app-img-diag-2 {
-        transform: translate(-50%, -50%) translateX(50px) rotate(8deg) scale(1.02);
+        transform: translate(-50%, -50%) translateX(40px) rotate(6deg) scale(1.02);
+    }
+
+    /* App Details Text Section */
+    .app-details {
+        padding-top: 20px;
     }
 
     .section-title {
-        font-size: 42px;
+        font-size: 32px;
     }
 
     .section-subtitle {
@@ -601,12 +602,13 @@ body {
     }
 
     .app-description {
-        font-size: 16px;
+        font-size: 15px;
         padding: 0 10px;
+        margin-top: 20px;
     }
 
     .feature-list {
-        margin-top: 20px;
+        margin-top: 30px;
     }
 
     .feature-item {
