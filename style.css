@@ -523,77 +523,82 @@ body {
 
 @media (max-width: 600px) {
     .main-content {
-        padding-top: 20px;
-        padding-bottom: 40px;
+        padding-top: 20px !important;
+        padding-bottom: 40px !important;
     }
 
     .hero-section {
-        margin-bottom: 80px;
-        padding-bottom: 0;
+        margin-bottom: 120px !important;
+        padding-bottom: 0 !important;
+        position: relative;
+        z-index: 2;
     }
 
-    /* Add massive space between to safeguard against overlap */
+    /* Massive gap to prevent overlap */
     .app-showcase {
-        margin-top: 0;
-        flex-direction: column;
-        gap: 60px;
+        margin-top: 60px !important;
+        flex-direction: column !important;
+        gap: 60px !important;
+        position: relative;
         z-index: 1;
+        display: flex !important;
     }
 
     .hero-title {
-        font-size: 36px !important;
+        font-size: 32px !important;
         line-height: 1.2;
     }
 
     .hero-desc {
-        font-size: 16px;
+        font-size: 16px !important;
         padding: 0 10px;
     }
 
-    /* Container for the images */
+    /* Taller container to isolate images */
     .app-images {
-        height: 340px;
-        width: 100%;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        height: 420px !important;
+        min-height: 400px !important;
+        width: 100% !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
         position: relative;
-        /* Remove background if it causes confusion, keeping it clean */
         background: transparent;
     }
 
-    /* Robust centering for the images */
     .app-img-diag-1,
     .app-img-diag-2 {
-        width: 140px;
-        top: 50%;
-        left: 50%;
-        margin: 0;
+        width: 140px !important;
+        top: 50% !important;
+        left: 50% !important;
+        margin: 0 !important;
+        position: absolute !important;
     }
 
-    /* Tighter positioning */
+    /* Tighter positioning to keep inside container */
     .app-img-diag-1 {
-        transform: translate(-50%, -50%) translateX(-30px) rotate(-6deg);
+        transform: translate(-50%, -50%) translateX(-40px) rotate(-6deg) !important;
     }
 
     .app-img-diag-2 {
-        transform: translate(-50%, -50%) translateX(30px) rotate(6deg);
+        transform: translate(-50%, -50%) translateX(40px) rotate(6deg) !important;
     }
 
     .app-showcase:hover .app-img-diag-1 {
-        transform: translate(-50%, -50%) translateX(-40px) rotate(-6deg) scale(1.02);
+        transform: translate(-50%, -50%) translateX(-50px) rotate(-6deg) scale(1.02) !important;
     }
 
     .app-showcase:hover .app-img-diag-2 {
-        transform: translate(-50%, -50%) translateX(40px) rotate(6deg) scale(1.02);
+        transform: translate(-50%, -50%) translateX(50px) rotate(6deg) scale(1.02) !important;
     }
 
     /* App Details Text Section */
     .app-details {
-        padding-top: 20px;
+        padding-top: 40px !important;
+        width: 100% !important;
     }
 
     .section-title {
-        font-size: 32px;
+        font-size: 32px !important;
     }
 
     .section-subtitle {
