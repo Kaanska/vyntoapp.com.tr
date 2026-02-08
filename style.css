@@ -430,6 +430,46 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+.btn-back {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 22px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-back i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    color: var(--accent);
+}
+
+.btn-back span {
+    letter-spacing: 0.5px;
+}
+
+.btn-back:hover {
+    background: rgba(78, 226, 192, 0.12);
+    border-color: rgba(78, 226, 192, 0.4);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(78, 226, 192, 0.15);
+}
+
+.btn-back:hover i {
+    transform: translateX(-5px);
+}
+
 .legal-main {
     padding-top: 150px;
     padding-bottom: 100px;
@@ -647,5 +687,11 @@ body {
 
     .legal-h3 {
         font-size: 18px;
+    }
+
+    .btn-back {
+        padding: 8px 16px;
+        font-size: 13px;
+        gap: 8px;
     }
 }
