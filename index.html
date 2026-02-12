@@ -12,15 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="icon" href="images/AppIcon.png">
+    <script src="https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.umd.js"></script>
 </head>
 
 <body>
-
-    <div class="bg-animate">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+    <canvas id="splash-cursor-canvas"></canvas>
 
     <main class="container main-content">
         <div class="hero-section animate">
@@ -131,6 +127,7 @@
             observer.observe(el);
         });
     </script>
+    <script src="fluid-simulation.js"></script>
 </body>
 
 </html>
