@@ -10,13 +10,13 @@
     const config = {
         SIM_RESOLUTION: 128,
         DYE_RESOLUTION: 1024,
-        DENSITY_DISSIPATION: 1.5,      // Daha hızlı kaybolma (daha ince)
-        VELOCITY_DISSIPATION: 1.8,     // Hız daha hızlı azalır
-        PRESSURE: 0.6,                  // Daha düşük basınç
-        PRESSURE_ITERATIONS: 20,
-        CURL: 15,                       // Daha az girdap (yarıya düşürdük)
-        SPLAT_RADIUS: 0.08,            // Çok daha küçük yarıçap (0.25'ten 0.08'e)
-        SPLAT_FORCE: 2000,             // Çok daha düşük kuvvet (6000'den 2000'e)
+        DENSITY_DISSIPATION: 0.9,      // Çok daha uzun süre kalması için (1.5'ten 0.9'a)
+        VELOCITY_DISSIPATION: 1.1,     // Akışkanın daha çok yayılması için (1.8'den 1.1'e)
+        PRESSURE: 0.8,                  // Daha yüksek basınç (0.6'dan 0.8'e)
+        PRESSURE_ITERATIONS: 24,       // Daha akıcı (20'den 24'e)
+        CURL: 30,                       // Daha belirgin girdap (15'ten 30'a)
+        SPLAT_RADIUS: 0.25,            // Çok daha belirgin izler (0.08'den 0.25'e)
+        SPLAT_FORCE: 6000,             // Güçlü etkileşim (2000'den 6000'e)
         SHADING: true,
         COLOR_UPDATE_SPEED: 10,
         PAUSED: false,
@@ -34,7 +34,7 @@
         this.deltaY = 0;
         this.down = false;
         this.moved = false;
-        this.color = [30, 0, 300];
+        this.color = generateColor(); // Fix: Initialize with a valid color object
     }
 
     let canvas;
@@ -693,6 +693,7 @@
     let colorUpdateTimer = 0.0;
 
     function update() {
+        if (!canvas) return; // Guard clause
         const dt = calcDeltaTime();
         if (resizeCanvas())
             initFramebuffers();
@@ -949,12 +950,39 @@
     }
 
     // Event handlers
+    window.addEventListener('mousedown', e => {
+        let pointer = pointers[0];
+        let posX = scaleByPixelRatio(e.clientX);
+        let posY = scaleByPixelRatio(e.clientY);
+        updatePointerMoveData(pointer, posX, posY);
+        pointer.down = true;
+        splatStack.push(parseInt(Math.random() * 2) + 1); // Splash on click
+    });
+
     window.addEventListener('mousemove', e => {
         let pointer = pointers[0];
         let posX = scaleByPixelRatio(e.clientX);
         let posY = scaleByPixelRatio(e.clientY);
         updatePointerMoveData(pointer, posX, posY);
     });
+
+    window.addEventListener('mouseup', () => {
+        let pointer = pointers[0];
+        pointer.down = false;
+    });
+
+    window.addEventListener('touchstart', e => {
+        e.preventDefault();
+        const touches = e.targetTouches;
+        let pointer = pointers[0];
+        for (let i = 0; i < touches.length; i++) {
+            let posX = scaleByPixelRatio(touches[i].clientX);
+            let posY = scaleByPixelRatio(touches[i].clientY);
+            updatePointerMoveData(pointer, posX, posY);
+            pointer.down = true;
+        }
+        splatStack.push(parseInt(Math.random() * 2) + 1);
+    }, false);
 
     window.addEventListener('touchmove', e => {
         e.preventDefault();
@@ -966,6 +994,11 @@
             updatePointerMoveData(pointer, posX, posY);
         }
     }, false);
+
+    window.addEventListener('touchend', e => {
+        let pointer = pointers[0];
+        pointer.down = false;
+    });
 
     let isAnimating = false;
 
