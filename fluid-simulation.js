@@ -9,14 +9,14 @@
 
     const config = {
         SIM_RESOLUTION: 128,
-        DYE_RESOLUTION: 1024,
-        DENSITY_DISSIPATION: 1.2,      // Daha uzun ve dumanlı izler (4.0'dan 1.2'ye)
-        VELOCITY_DISSIPATION: 0.6,     // Hareketin daha akışkan kalması için (3.0'dan 0.6'ya)
-        PRESSURE: 0.8,
-        PRESSURE_ITERATIONS: 24,
-        CURL: 50,                       // Zarif duman kıvrımları için (60'tan 50'ye)
-        SPLAT_RADIUS: 0.2,             // Daha gövdeli ve belirgin izler (0.02'den 0.2'ye)
-        SPLAT_FORCE: 6000,             // Akışkanın daha iyi yayılması için dengeli güç
+        DYE_RESOLUTION: 1440,
+        DENSITY_DISSIPATION: 3.5,      // Orijinal ReactBits değeri (daha narin geçişler)
+        VELOCITY_DISSIPATION: 2.0,     // Hareketin daha kontrollü durması için
+        PRESSURE: 0.1,                  // Daha hafif, katmanlı olmayan his (0.8'den 0.1'e)
+        PRESSURE_ITERATIONS: 20,
+        CURL: 3.0,                      // Çok daha yumuşak ve doğal kıvrımlar (45'ten 3'e)
+        SPLAT_RADIUS: 0.2,             // İdeal iz genişliği
+        SPLAT_FORCE: 6000,             // Standart etkileşim gücü
         SHADING: true,
         COLOR_UPDATE_SPEED: 10,
         PAUSED: false,
@@ -875,9 +875,9 @@
 
     function generateColor() {
         let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-        c.r *= 0.25;  // Neon parlaklığı için (0.15'ten 0.25'e)
-        c.g *= 0.25;
-        c.b *= 0.25;
+        c.r *= 0.15;  // ReactBits orijinal narinliği (0.25'ten 0.15'e)
+        c.g *= 0.15;
+        c.b *= 0.15;
         return c;
     }
 
