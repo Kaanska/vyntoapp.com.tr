@@ -10,13 +10,13 @@
     const config = {
         SIM_RESOLUTION: 128,
         DYE_RESOLUTION: 1024,
-        DENSITY_DISSIPATION: 4.0,      // Çok hızlı kaybolması için (1.2'den 4.0'a)
-        VELOCITY_DISSIPATION: 3.0,     // Hareketin anında durması için (1.0'dan 3.0'a)
+        DENSITY_DISSIPATION: 1.2,      // Daha uzun ve dumanlı izler (4.0'dan 1.2'ye)
+        VELOCITY_DISSIPATION: 0.6,     // Hareketin daha akışkan kalması için (3.0'dan 0.6'ya)
         PRESSURE: 0.8,
         PRESSURE_ITERATIONS: 24,
-        CURL: 60,                       // Daha da sıkı ve küçük girdaplar (45'ten 60'a)
-        SPLAT_RADIUS: 0.02,            // Çok daha minik ve zarif izler (0.05'ten 0.02'e)
-        SPLAT_FORCE: 8000,             // Kısa ama etkili hareketler için biraz daha güç
+        CURL: 50,                       // Zarif duman kıvrımları için (60'tan 50'ye)
+        SPLAT_RADIUS: 0.2,             // Daha gövdeli ve belirgin izler (0.02'den 0.2'ye)
+        SPLAT_FORCE: 6000,             // Akışkanın daha iyi yayılması için dengeli güç
         SHADING: true,
         COLOR_UPDATE_SPEED: 10,
         PAUSED: false,
@@ -875,9 +875,9 @@
 
     function generateColor() {
         let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-        c.r *= 0.15;  // Daha canlı ve belirgin (0.12'den 0.15'e)
-        c.g *= 0.15;
-        c.b *= 0.15;
+        c.r *= 0.25;  // Neon parlaklığı için (0.15'ten 0.25'e)
+        c.g *= 0.25;
+        c.b *= 0.25;
         return c;
     }
 
