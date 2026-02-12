@@ -523,7 +523,7 @@
 
         function startGUI() {
             initFramebuffers();
-            multipleSplats(parseInt(Math.random() * 3) + 2);  // Daha az başlangıç efekti (2-4 arası)
+            multipleSplats(parseInt(Math.random() * 4) + 4);  // Başlangıçta daha belirgin efekt (4-7 arası)
         }
     }
 
@@ -965,11 +965,30 @@
         }
     }, false);
 
-    // Initialize on load
-    window.addEventListener('load', () => {
-        init();
-        update();
-        console.log('WebGL Fluid Simulation initialized!');
-    });
+    // Initialize logic
+    function startSimulation() {
+        const existingCanvas = document.getElementById('splash-cursor-canvas');
+        if (!existingCanvas) return;
 
+        // If already initialized, just make sure we are animating
+        if (canvas === existingCanvas) return;
+
+        init();
+        if (canvas) {
+            update();
+            console.log('WebGL Fluid Simulation initialized!');
+        }
+    }
+
+    // Start as soon as possible
+    if (document.readyState === 'complete') {
+        startSimulation();
+    } else {
+        window.addEventListener('load', startSimulation);
+    }
+
+    // Handle browser back/forward cache (bfcache)
+    window.addEventListener('pageshow', (event) => {
+        startSimulation();
+    });
 })();
