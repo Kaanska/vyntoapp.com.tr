@@ -10,13 +10,13 @@
     const config = {
         SIM_RESOLUTION: 128,
         DYE_RESOLUTION: 1024,
-        DENSITY_DISSIPATION: 0.9,      // Çok daha uzun süre kalması için (1.5'ten 0.9'a)
-        VELOCITY_DISSIPATION: 1.1,     // Akışkanın daha çok yayılması için (1.8'den 1.1'e)
-        PRESSURE: 0.8,                  // Daha yüksek basınç (0.6'dan 0.8'e)
-        PRESSURE_ITERATIONS: 24,       // Daha akıcı (20'den 24'e)
-        CURL: 30,                       // Daha belirgin girdap (15'ten 30'a)
-        SPLAT_RADIUS: 0.25,            // Çok daha belirgin izler (0.08'den 0.25'e)
-        SPLAT_FORCE: 6000,             // Güçlü etkileşim (2000'den 6000'e)
+        DENSITY_DISSIPATION: 1.2,      // Daha keskin ve detaylı kalması için (0.9'dan 1.2'ye)
+        VELOCITY_DISSIPATION: 1.0,     // Hareketin daha akışkan olması için (1.1'den 1.0'a)
+        PRESSURE: 0.8,
+        PRESSURE_ITERATIONS: 24,
+        CURL: 45,                       // Çok daha ince ve detaylı girdaplar (30'dan 45'e)
+        SPLAT_RADIUS: 0.05,            // Daha detaylı ve küçük izler (0.25'ten 0.05'e)
+        SPLAT_FORCE: 7000,             // Küçük yarıçapta daha güçlü etki (6000'den 7000'e)
         SHADING: true,
         COLOR_UPDATE_SPEED: 10,
         PAUSED: false,
