@@ -714,6 +714,7 @@
     function resizeCanvas() {
         let width = scaleByPixelRatio(canvas.clientWidth);
         let height = scaleByPixelRatio(canvas.clientHeight);
+        if (width === 0 || height === 0) return false;
         if (canvas.width !== width || canvas.height !== height) {
             canvas.width = width;
             canvas.height = height;
@@ -872,9 +873,9 @@
 
     function generateColor() {
         let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-        c.r *= 0.08;  // Daha düşük yoğunluk (0.15'ten 0.08'e)
-        c.g *= 0.08;
-        c.b *= 0.08;
+        c.r *= 0.12;  // Daha görünür renkler (0.08'den 0.12'ye)
+        c.g *= 0.12;
+        c.b *= 0.12;
         return c;
     }
 
@@ -970,8 +971,14 @@
         const existingCanvas = document.getElementById('splash-cursor-canvas');
         if (!existingCanvas) return;
 
-        // If already initialized, just make sure we are animating
-        if (canvas === existingCanvas) return;
+        // If already initialized, just trigger fresh splats and ensure resizing
+        if (canvas === existingCanvas) {
+            if (typeof resizeCanvas === 'function') resizeCanvas();
+            if (typeof multipleSplats === 'function') {
+                multipleSplats(parseInt(Math.random() * 5) + 6); // Geri dönüşte daha belirgin splat (6-11 arası)
+            }
+            return;
+        }
 
         init();
         if (canvas) {
@@ -981,14 +988,26 @@
     }
 
     // Start as soon as possible
-    if (document.readyState === 'complete') {
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
         startSimulation();
     } else {
         window.addEventListener('load', startSimulation);
     }
 
-    // Handle browser back/forward cache (bfcache)
+    // Handle browser back/forward cache (bfcache) and visibility changes
     window.addEventListener('pageshow', (event) => {
         startSimulation();
+    });
+
+    // Ensure it works on visibility change too
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            startSimulation();
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (canvas && typeof resizeCanvas === 'function') resizeCanvas();
     });
 })();
