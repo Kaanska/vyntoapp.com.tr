@@ -40,6 +40,7 @@
     let canvas;
     let pointers = [];
     let splatStack = [];
+    let requestID;
     pointers.push(new pointerPrototype());
 
     class GLProgram {
@@ -700,7 +701,7 @@
         if (!config.PAUSED)
             step(dt);
         render(null);
-        requestAnimationFrame(update);
+        requestID = requestAnimationFrame(update);
     }
 
     function calcDeltaTime() {
@@ -873,9 +874,9 @@
 
     function generateColor() {
         let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-        c.r *= 0.12;  // Daha görünür renkler (0.08'den 0.12'ye)
-        c.g *= 0.12;
-        c.b *= 0.12;
+        c.r *= 0.15;  // Daha canlı ve belirgin (0.12'den 0.15'e)
+        c.g *= 0.15;
+        c.b *= 0.15;
         return c;
     }
 
@@ -966,26 +967,52 @@
         }
     }, false);
 
+    let isAnimating = false;
+
     // Initialize logic
     function startSimulation() {
         const existingCanvas = document.getElementById('splash-cursor-canvas');
         if (!existingCanvas) return;
 
-        // If already initialized, just trigger fresh splats and ensure resizing
+        // Always reset timing to avoid massive dt jumps
+        lastUpdateTime = Date.now();
+
+        // If already initialized, just ensure it's still animating and splash
         if (canvas === existingCanvas) {
             if (typeof resizeCanvas === 'function') resizeCanvas();
+
+            // Force a splash EVERY time this is called (nav, back, resume)
             if (typeof multipleSplats === 'function') {
-                multipleSplats(parseInt(Math.random() * 5) + 6); // Geri dönüşte daha belirgin splat (6-11 arası)
+                multipleSplats(25); // Intense splash for visibility
+            }
+
+            // Force restart the loop if it's not running
+            if (!isAnimating) {
+                if (requestID) cancelAnimationFrame(requestID);
+                update();
             }
             return;
         }
 
+        // Fresh initialization
         init();
         if (canvas) {
+            if (requestID) cancelAnimationFrame(requestID);
             update();
             console.log('WebGL Fluid Simulation initialized!');
+            // Dramatic entrance splash
+            setTimeout(() => {
+                if (typeof multipleSplats === 'function') multipleSplats(25);
+            }, 100);
         }
     }
+
+    // Wrap original update to track animation state
+    const originalUpdate = update;
+    update = function () {
+        isAnimating = true;
+        originalUpdate();
+    };
 
     // Start as soon as possible
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
@@ -996,13 +1023,16 @@
 
     // Handle browser back/forward cache (bfcache) and visibility changes
     window.addEventListener('pageshow', (event) => {
-        startSimulation();
+        // Use a slightly longer delay to ensure the browser has fully swapped back the DOM/state
+        setTimeout(startSimulation, 100);
     });
 
     // Ensure it works on visibility change too
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') {
             startSimulation();
+        } else {
+            isAnimating = false; // Mark as not animating when hidden
         }
     });
 
