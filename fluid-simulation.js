@@ -524,7 +524,6 @@
 
         function startGUI() {
             initFramebuffers();
-            multipleSplats(parseInt(Math.random() * 4) + 4);  // Başlangıçta daha belirgin efekt (4-7 arası)
         }
     }
 
@@ -1010,14 +1009,9 @@
         // Always reset timing to avoid massive dt jumps
         lastUpdateTime = Date.now();
 
-        // If already initialized, just ensure it's still animating and splash
+        // If already initialized, just ensure it's still animating
         if (canvas === existingCanvas) {
             if (typeof resizeCanvas === 'function') resizeCanvas();
-
-            // Force a splash EVERY time this is called (nav, back, resume)
-            if (typeof multipleSplats === 'function') {
-                multipleSplats(25); // Intense splash for visibility
-            }
 
             // Force restart the loop if it's not running
             if (!isAnimating) {
@@ -1033,10 +1027,6 @@
             if (requestID) cancelAnimationFrame(requestID);
             update();
             console.log('WebGL Fluid Simulation initialized!');
-            // Dramatic entrance splash
-            setTimeout(() => {
-                if (typeof multipleSplats === 'function') multipleSplats(25);
-            }, 100);
         }
     }
 
